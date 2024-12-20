@@ -80,7 +80,7 @@ symfony server:start
 
 Access the project in your browser at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 # Recap 
-git clone <url-du-dépôt> 
+git clone (https://github.com/Axel-DosSantos/SellerieApp.git)
 
 cd <dossier-du-projet>
 
