@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Equipment List</h1>
+    <div class="container mx-auto px-4 py-6">
+        <table class="min-w-full bg-white shadow-lg rounded-lg overflow-hidden" id="myTable">
+            <thead>
+                <tr class="bg-pastel-green text-gray-800 text-sm uppercase leading-normal">
+                    <th class="py-3 px-6 text-left">Name</th>
+                    <th class="py-3 px-6 text-left">Category</th>
+                    <th class="py-3 px-6 text-left">Price</th>
+                    <th class="py-3 px-6 text-left">Location</th>
+                    <th class="py-3 px-6 text-left">Status</th>
+                    <th class="py-3 px-6 text-left">Availability</th>
+                    <th class="py-3 px-6 text-left">Reserve</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700 text-sm font-light">
+            {% for equipment in equipments %}
+                <tr class="border-b border-gray-200 hover:bg-pastel-lavender">
+                    <td class="py-3 px-6 font-semibold text-pastel-blue hover:text-blue-800">
+                        <a href="{{ path('app_details_equipment', { id: equipment.id }) }}">{{ equipment.name }}</a>
+                    </td>
+                    <td class="py-3 px-6">{{ equipment.category.name }}</td>
+                    <td class="py-3 px-6">{{ equipment.price|number_format(2, '.', ',') }} €</td>
+                    <td class="py-3 px-6">{{ equipment.location.aisle ~ ' - ' ~ equipment.location.shelf }}</td>
+                    <td class="py-3 px-6">{{ equipment.stat.name }}</td>
+                    <td class="py-3 px-6">
+                        {% if equipment.isAvailable %}
+                            <span class="text-pastel-green font-semibold">Available</span>
+                        {% else %}
+                            <span class="text-pastel-red font-semibold">Not available</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-6">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') and equipment.isAvailable %}
+                            <a href="{{ path('reservation_new', { id: equipment.id }) }}" class="bg-pastel-blue text-white font-bold py-2 px-4 rounded-full transition-all duration-200 hover:bg-pastel-blue-light hover:shadow-lg">
+                                Reserve
+                            </a>
+                        {% elseif not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <p><a href="{{ path('app_login') }}" class="text-pastel-blue underline hover:text-blue-700">Log in</a> to reserve this equipment.</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+{% endblock %}
