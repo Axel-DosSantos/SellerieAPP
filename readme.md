@@ -80,14 +80,25 @@ symfony server:start
 
 Access the project in your browser at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 # Recap 
-git clone <url-du-dépôt>
+git clone <url-du-dépôt> 
+
 cd <dossier-du-projet>
+
 composer install
+
 npm install
+
 cp .env .env.local
+
 DATABASE_URL="mysql://nom_utilisateur:mot_de_passe@127.0.0.1:3306/nom_base_de_données"
+
 php bin/console doctrine:database:create
+
 php bin/console doctrine:migrations:migrate
+
 php bin/console doctrine:fixtures:load
+
 npm run build
+
 symfony server:start
+
