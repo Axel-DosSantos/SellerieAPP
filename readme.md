@@ -1,136 +1,93 @@
 # README
 
-## Project Setup
+## Configuration du Projet
 
-This README provides detailed instructions to get the project up and running after cloning it from the Git repository. Follow these steps carefully to ensure the environment is correctly configured.
+Ce README fournit des instructions détaillées pour configurer et exécuter le projet après l'avoir cloné depuis le dépôt Git. Suivez ces étapes attentivement pour vous assurer que l'environnement est correctement configuré.
 
-### Prerequisites
+### Prérequis
 
-Before starting, make sure you have the following installed:
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
 
-- **PHP** (>=8.1 recommended)a
-- **Composer** (Dependency Manager for PHP)
-- **Symfony CLI** (optional but recommended)
-- **MySQL** (or any database supported by Doctrine)
-- **Node.js and npm** (for frontend assets, if applicable)
+- **PHP** (>=8.1 recommandé)
+- **Composer** (Gestionnaire de dépendances pour PHP)
+- **Symfony CLI** (facultatif mais recommandé)
+- **MySQL** (ou toute autre base de données supportée par Doctrine)
+- **Node.js et npm** (pour les assets frontend, si applicable)
 
-### Steps to Run the Project
+### Étapes pour exécuter le projet
 
-#### 1. Clone the Repository
+#### 1. Cloner le dépôt
 
 ```bash
-git clone <repository-url>
-cd <project-folder>
+git clone <url-du-dépôt>
+cd <dossier-du-projet>
 ```
 
-#### 2. Install Dependencies
-
-Run the following command to install PHP dependencies:
+#### 2. Installer les dépendances
+Exécutez la commande suivante pour installer les dépendances PHP :
 
 ```bash
 composer install
 ```
 
-If the project uses frontend assets, install JavaScript dependencies:
+Si le projet utilise des assets frontend, installez les dépendances JavaScript :
 
 ```bash
 npm install
 ```
 
-#### 3. Configure Environment Variables
+#### 3. Configurer les variables d'environnement
 
-Copy the `.env` file to `.env.local` and update the database and other environment configurations as needed:
+Copiez le fichier .env vers .env.local et mettez à jour les configurations de la base de données et autres paramètres si nécessaire :
+
+bash
+Copier le code
 
 ```bash
 cp .env .env.local
 ```
 
-Update the `DATABASE_URL` in `.env.local` with your database connection details. For example:
+Mettez à jour la valeur de DATABASE_URL dans .env.local avec les détails de connexion à votre base de données. Par exemple :
 
 ```
 DATABASE_URL="mysql://username:password@127.0.0.1:3306/database_name"
 ```
 
-#### 4. Set Up the Database
+#### 4. Configurer la base de données
 
-Run the following commands to create the database and apply migrations:
+Exécutez les commandes suivantes pour créer la base de données et appliquer les migrations :
 
 ```bash
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
-```
-
-If the project has data fixtures:
-
-```bash
 php bin/console doctrine:fixtures:load
 ```
 
 #### 5. Build Frontend Assets (if applicable)
 
-If the project has frontend dependencies, build the assets:
+Si le projet a des dépendances frontend, compilez les assets :
 
 ```bash
 npm run build
 ```
 
-#### 6. Start the Server
-
-Start the Symfony server:
+#### 6. Démarrer le serveur
+Démarrez le serveur Symfony :
 
 ```bash
 symfony server:start
 ```
 
-Alternatively, use the built-in PHP server:
-
-```bash
-php -S 127.0.0.1:8000 -t public
-```
-
 Access the project in your browser at [http://127.0.0.1:8000](http://127.0.0.1:8000).
-
-### Testing
-
-To run tests (if applicable):
-
-```bash
-php bin/phpunit
-```
-
-### Troubleshooting
-
-1. **Missing PHP Extensions**: Ensure required PHP extensions (e.g., pdo\_mysql) are installed.
-2. **Permission Issues**: Verify the `var/` and `public/` directories have appropriate write permissions.
-3. **Cache Issues**: Clear the cache if you encounter errors:
-   ```bash
-   php bin/console cache:clear
-   ```
-4. **Database Errors**: Ensure the database credentials are correct and the service is running.
-
-### Useful Commands
-
-- **Clear Cache**:
-  ```bash
-  php bin/console cache:clear
-  ```
-- **Update Database Schema**:
-  ```bash
-  php bin/console doctrine:schema:update --force
-  ```
-- **Run Migrations**:
-  ```bash
-  php bin/console doctrine:migrations:migrate
-  ```
-- **List Routes**:
-  ```bash
-  php bin/console debug:router
-  ```
-
-### Additional Notes
-
-- Ensure that `.env.local` is not committed to version control as it contains sensitive data.
-- For production, additional configuration may be required, such as setting up a web server (e.g., Apache or Nginx).
-
-If you encounter any issues, refer to the Symfony documentation or contact the project maintainer.
-
+# Recap 
+git clone <url-du-dépôt>
+cd <dossier-du-projet>
+composer install
+npm install
+cp .env .env.local
+DATABASE_URL="mysql://nom_utilisateur:mot_de_passe@127.0.0.1:3306/nom_base_de_données"
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
+npm run build
+symfony server:start
